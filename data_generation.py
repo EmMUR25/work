@@ -5,7 +5,7 @@ import numpy as np
 def data_split(df,well_id_int=6110299100,param_id_list=[188,200],package_size=50000, leftcut=5000):
     
     """ Функция для разделения данных по скважинам (well_id), параметрам (param_id) и формирования пакетов
-     данных заданного размера (package_size) с возможностью среза слева на определенное число строк (leftcut).
+     данных,где каждый следующий пакет - конкатенация предыдущего пакета и среза заданного размера (package_size), с возможностью среза слева на определенное  число строк (leftcut) у предыдущего пакета.
      Параметры: 
      :param df: pandas DataFrame с исходными данными.
      :param well_id_int: идентификатор скважины, по которому фильтруются данные. По умолчанию 6110299100.
@@ -14,7 +14,7 @@ def data_split(df,well_id_int=6110299100,param_id_list=[188,200],package_size=50
      :param leftcut: количество точек, которые будут обрезаны слева от каждого нового пакета. По умолчанию 5000.
      
      Возвращаемое значение: 
-     :return: список пакетов данных (pandas DataFrames), каждый размером до package_size строк. """
+     :return: список пакетов данных (pandas DataFrames). """
     
     # Фильтруем данные по well_id и param_id
     df=df.query('well_id == @well_id_int and param_id in @param_id_list')
